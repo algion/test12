@@ -2,6 +2,8 @@
 
 let $searchForm = $('#search-form');
 let $bookList = $ ('#book-list');
+let $currentBook = $('#current-book');
+let $bookDescription = $('.book-description');
 let arrBooks = []
 $searchForm.on("submit", function (event) {
   event.preventDefault();
@@ -30,3 +32,26 @@ function getBooks(query) {
     console.log(error);
   });
 }
+$bookList.on('click','[data-id]', function(event){
+  event.preventDefault();
+let bookId = $(this).data('id');
+let book = arrBooks.find (function(item){
+  return item.id === bookId
+});
+console.log(bookId)
+$currentBook.fadeIn();
+$currentBook.find('.book-title')
+.text(`${book.volumeInfo.title} | 
+${book.volumeInfo.authors ? book.volumeInfo.authors.join(", "): "No authors"}
+${book.volumeInfo.publishedDate}`);
+
+$bookDeskription.empty();
+$('<img>').attr('src', book.volumeInfo.imageLinks.thumbinail)
+.appendTo ($bookDeskription);
+$('<p>').text(book.volumeInfo.description)
+.appendTo ($bookDeskription);
+$('<a >').attr('href', book.volumeInfo.previewLink)
+.attr('target', '_blank');
+// .text('read more')
+.addClass ('.read-link')
+});
