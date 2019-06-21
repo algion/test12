@@ -3,3 +3,7 @@
   margin: 40px 0 20px;
   border-bottom: 5px solid #000000;
 }
+
+img {
+  float: left;
+}
